@@ -48,9 +48,11 @@ def k_je_graph(n: int, grad: float, modus: str, k_fest: int | None, seeds=C.GRAP
     return [A.optimum(n, grad, s) - (1 if modus == "Optimum − 1" else 0) for s in seeds]
 
 
-def messe_zelle(n: int, grad: float, modus: str, k_fest: int | None, verfahren, budget: int, seeds=C.GRAPH_SEEDS, fortschritt=None) -> dict:
+def messe_zelle(n: int, grad: float, modus: str, k_fest: int | None, verfahren, budget: int, seeds=C.GRAPH_SEEDS, fortschritt=None, messe_lauf=None) -> dict:
     """Ein Lauf je Graph und Kodierung. Die binomiale Kodierung wird über `BINOMIAL_GRENZE` Klauseln nicht gebaut (nur die Formel steht in der Zelle).
-    Erwartung je Graph: erfüllbar genau dann, wenn k >= Optimum."""
+    Erwartung je Graph: erfüllbar genau dann, wenn k >= Optimum. `messe_lauf(n, kanten, k, v, budget)` ersetzt `A.messe_lauf` (die App reicht eine
+    zwischengespeicherte Fassung herein, `kkd_fortschritt.py`); `fortschritt(v, s)` wird nach jedem gerechneten Lauf aufgerufen."""
+    messe_lauf = messe_lauf or A.messe_lauf
     ks = k_je_graph(n, grad, modus, k_fest, seeds)
     opts = [A.optimum(n, grad, s) for s in seeds]
     zelle = {"n": n, "grad": grad, "modus": modus, "k_fest": k_fest, "budget": budget, "seeds": list(seeds), "k": ks, "opt": opts,
@@ -68,7 +70,7 @@ def messe_zelle(n: int, grad: float, modus: str, k_fest: int | None, verfahren, 
                 je["hilfs"].append(0)
                 je["modell_ok"].append(None)
                 continue
-            r = A.messe_lauf(n, kanten, k, v, budget)
+            r = messe_lauf(n, kanten, k, v, budget)
             for feld, wert in (("konflikte", r["konflikte"]), ("antwort", r["antwort"]), ("klauseln", r["klauseln"]), ("hilfs", r["hilfs"]),
                                ("modell_ok", r["modell_ok"])):
                 je[feld].append(wert)

@@ -30,7 +30,7 @@ Die naheliegende Übersetzung verbietet jede Auswahl von k + 1 Eingängen einzel
 | Vorgerechnete Messreihen | `kkd_messungen.json` | geschrieben von `tools/messungen.py` (dieselben Funktionen wie die Live-Messreihe), Budget 300.000 Konflikte |
 | Eingefrorene Optima | `kkd_optima.json` | geschrieben von `tools/optima.py` (OR-Tools CP-SAT); in der App nie benutzt |
 
-Experimente in der App: **Eine Regel von Hand** (n = 3 bis 8, k = 0 bis 7, drei Kodierungen; alle Klauseln mit lesbaren Namen und Gruppen, Eingänge auf wahr, falsch oder offen setzen, Einheitspropagation Schritt für Schritt mit auslösender Klausel, Konflikt rot; Aufzählung aller 2^n Eingaben), **Wie wächst die Kodierung** (Klauseln über n und über k, Formel als Linie, gebaute Zahlen als Kreise), **Dieselbe Frage, drei Kodierungen** (vorgerechnet, dazu live), **Ist die Einheitspropagation vollständig** (alle 729 Teilbelegungen bei n = 6, k = 2 und 5.000 Zufallsteilbelegungen bei n = 10, k = 3). Die großen Messreihen sind **vorgerechnet, nicht live**; im Experiment 3 rechnet ein Knopf dieselbe Messreihe live nach (Konfliktbudget in der Seitenleiste).
+Experimente in der App: **Eine Regel von Hand** (n = 3 bis 8, k = 0 bis 7, drei Kodierungen; alle Klauseln mit lesbaren Namen und Gruppen, Eingänge auf wahr, falsch oder offen setzen, Einheitspropagation Schritt für Schritt mit auslösender Klausel, Konflikt rot; Aufzählung aller 2^n Eingaben), **Wie wächst die Kodierung** (Klauseln über n und über k, Formel als Linie, gebaute Zahlen als Kreise), **Dieselbe Frage, drei Kodierungen** (vorgerechnet, dazu live), **Ist die Einheitspropagation vollständig** (alle 729 Teilbelegungen bei n = 6, k = 2 und 5.000 Zufallsteilbelegungen bei n = 10, k = 3). Die großen Messreihen sind **vorgerechnet, nicht live**; im Experiment 3 rechnet ein Knopf dieselbe Messreihe live nach (Konfliktbudget in der Seitenleiste); ein Fortschrittsbalken zählt die fertigen Läufe, und schon gerechnete Läufe kommen beim erneuten Start aus dem Zwischenspeicher (`kkd_fortschritt.py`, ohne Änderung der Rechnung).
 
 ## Befunde (gemessen, keine Behauptungen)
 
@@ -108,6 +108,7 @@ Am Optimum dreht sich die Richtung bei **n = 25** gegenüber der Referenzmenge u
 | `kkd_cdcl.py`, `kkd_instanzen.py`, `kkd_kodierung.py`, `kkd_rng.py` | wörtliche Kopien der Kern-Module (Herkunft und Kern-Version im Kopf) |
 | `kkd_constants.py` | Regler-Grenzen, Messraster, Farben, Presets |
 | `kkd_evaluation.py` | Messreihen, Kennzahlen, Verdikte |
+| `kkd_fortschritt.py` | Fortschrittsbalken und Zwischenspeicher für die Live-Messreihe (je Lauf; keine eigene Rechnung) |
 | `kkd_layout.py` | Fester Kopf (Stylesheet) |
 | `kkd_messungen.json`, `kkd_optima.json` | vorgerechnete Messreihen, eingefrorene Optima |
 | `kkd_presets.py` | Permalink (Einrasten), Presets, Zufalls-Seed-Button |

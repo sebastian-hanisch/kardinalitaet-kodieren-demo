@@ -14,6 +14,7 @@ import streamlit as st
 import kkd_algorithm as A
 import kkd_constants as C
 import kkd_evaluation as E
+import kkd_fortschritt as F
 import kkd_scenario as S
 import kkd_visualization as V
 from kkd_layout import dunkles_design, kopf_css
@@ -53,11 +54,6 @@ def _vollstaendig(art, seed):
         n, k, anzahl = C.E4_ZUFALL
         bel = A.zufalls_teilbelegungen(n, anzahl, seed)
     return {v: A.vollstaendigkeit(v, n, k, bel) for v in C.VERFAHREN}
-
-
-@st.cache_data(show_spinner=False)
-def _live(n, grad, modus, k, budget):
-    return E.messe_zelle(n, grad, modus, k, C.VERFAHREN, budget)
 
 
 # --- Kopf, Einleitung ----------------------------------------------------------------------------------------------------------------------
@@ -260,9 +256,10 @@ with st.expander("🔁 Live nachrechnen"):
                "ab n = 25 bei fast allen k zu groß und wird dann nicht gebaut.")
     signatur = (e3_n, e3_grad, e3_modus, k_arg, budget)
     if st.button("Messreihe live starten", key="live_go",
-                 help="Zehn Graphen, drei Kodierungen; je nach n und k einige Sekunden bis wenige Minuten."):
-        with st.spinner("Die Messreihe läuft (je nach Einstellung einige Sekunden bis wenige Minuten) …"):
-            st.session_state["live_e3"] = {"sig": signatur, "zelle": _live(e3_n, e3_grad, e3_modus, k_arg, budget)}
+                 help="Zehn Graphen, drei Kodierungen; je nach n und k dauert das unterschiedlich lang. Ein Fortschrittsbalken zählt die fertigen Läufe, "
+                      "schon gerechnete Läufe kommen beim erneuten Start aus dem Zwischenspeicher."):
+        with F.fortschrittsbalken("Die Messreihe läuft, fertige Läufe") as melde:
+            st.session_state["live_e3"] = {"sig": signatur, "zelle": F.zelle(e3_n, e3_grad, e3_modus, k_arg, C.VERFAHREN, budget, melde)}
     gespeichert = st.session_state.get("live_e3")
     if gespeichert and gespeichert["sig"] == signatur:
         _zelle_zeigen(gespeichert["zelle"], f"Konflikte je Graph (live): n = {e3_n}, Grad {str(e3_grad).replace('.', ',')}",
