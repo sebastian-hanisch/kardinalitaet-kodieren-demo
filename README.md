@@ -1,7 +1,6 @@
 # Kardinalität kodieren – Streamlit-Demo
 
-<!-- TODO nach dem Deploy: direkt hierher den Live-Link setzen (Leerzeile davor und danach):
-**[→ Demo live ausprobieren](https://sebastianhanisch-kardinalitaet-kodieren-demo.streamlit.app/)** -->
+**[→ Demo live ausprobieren](https://sebastianhanisch-kardinalitaet-kodieren-demo.streamlit.app/)**
 
 Demo der Linie **SAT und Constraint Programming** in der „Konzepte“-Reihe für die Website „Sebastian Hanisch – Operations Research und Machine Learning“. Sie baut auf dem Konfliktlernen auf und beantwortet die Frage, die dort offen bleibt: Ein Löser kennt nur Klauseln, eine **Zählbedingung** („höchstens k von n“) ist keine kurze Klausel. Die Demo zeigt an einer Regel mit vier Eingängen von Hand, wie **drei Übersetzungen** (binomial, Sinz-Zähler, Totalizer) dieselbe Regel in Klauseln schreiben, wie ihre **Größe** wächst und was sie dem Löser an **Konflikten** kosten. Vehikel sind **Kontrollpunkte im Konfliktgraphen**: Aufträge mit Unverträglichkeiten (derselbe Konfliktgraph wie die Rampen-Instanz der Linie), jede Unverträglichkeit muss an mindestens einem ihrer beiden Aufträge kontrolliert werden, höchstens k Kontrollen (Vertex Cover höchstens k).
 
